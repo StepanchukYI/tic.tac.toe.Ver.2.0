@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recover password</title>
+    <style>
+        #frame {
+            position: absolute;
+            top: 5%;
+            left: 25%;
+            width: 45%;
+            height: 25%;
+            border: 3px solid black;
+        }
+
+        #lbPassRecover {
+            top: 5%;
+            width: 45%;
+            left: 40%;
+            position: absolute;
+        }
+
+        #lbEnterEmail {
+            font-size: 15px;
+            top: 10%;
+            width: 45%;
+            left: 32%;
+            position: absolute;
+        }
+
+        #lbPassSend {
+            font-size: 15px;
+            top: 12%;
+            width: 40%;
+            left: 29%;
+            position: absolute;
+        }
+
+        #txt_email {
+            width: 200px;
+            top: 18%;
+            left: 40%;
+            position: absolute;
+            border: 2px solid black;
+        }
+
+        #btn_recover {
+            width: 205px;
+            top: 22%;
+            left: 40%;
+            position: absolute;
+            border: 2px solid black;
+        }
+
+        #link_register {
+            font-size: 18px;
+            top: 26%;
+            left: 45%;
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript" src="msg/command/command.js">
+        if (txt_email.value != "") {
+            btn_recovery.disable = false;
+        }
+
+    </script>
+</head>
+<body>
+<section id="cont">
+    <div id="form1">
+        <form method="post" name="login">
+            <div id="frame"></div>
+            <div id="lbPassRecover"><h3>Восстановление пароля</h3></div>
+            <div id="lbEnterEmail">Пожалуйста, введите e-mail, указанный вами при регистрации.</div>
+            <div id="lbPassSend">Письмо с инструкциями по восстановлению пароля будет выслано на этот адрес.</div>
+            <input type="email" id="txt_email" class="put2" placeholder="E-mail" name="email"/><br/>
+            <div id="msg_email"></div>
+            <input type="button" id="btn_recover" value="Отправить E-mail" onclick="Mail(txt_email.value)"/>
+            <div id="link_register"><a id="link" href="msg/log/index.html">Войдите</a></div>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

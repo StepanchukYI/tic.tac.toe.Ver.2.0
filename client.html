@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients Lists</title>
+    <style>
+        #lbName {
+            top: 4%;
+            position: absolute;
+            left: 5%;
+            float: left;
+        }
+
+        #lbLoginL {
+            top: 4%;
+            width: 10%;
+            position: absolute;
+            left: 16%;
+            float: left;
+        }
+
+        #clients {
+            text-align: left;
+            padding: 10px;
+            background: #fff;
+            height: 50%;
+            width: 20%;
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            border: 1px solid black;
+            overflow: auto;
+            float: left;
+        }
+
+        #btn_refresh {
+            width: 100px;
+            position: absolute;
+            top: 62%;
+            left: 5%;
+        }
+
+        #btn_quit {
+            width: 100px;
+            position: absolute;
+            top: 62%;
+            left: 18%;
+        }
+
+    </style>
+    <script type="text/javascript" src="msg/command/command.js"></script>
+    <script>
+        setInterval(GetClients, 3000);
+        setInterval(Receive, 1000);
+    </script>
+</head>
+<body>
+<form>
+    <div id="lbName"> Вы зашли под ником:</div>
+    <div id="lbLoginL"></div>
+    <table id="clients"></table>
+    <input type="button" id="btn_refresh" value="refresh" onclick="GetClients()"/>
+    <input type="button" id="btn_quit" value="Quit" onclick="Quit()"/>
+</form>
+</body>
+</html>

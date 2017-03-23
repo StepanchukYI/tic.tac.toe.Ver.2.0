@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        #frame {
+            position: absolute;
+            top: 3%;
+            left: 36%;
+            width: 23%;
+            height: 40%;
+            border: 3px solid black;
+        }
+
+        #lbRegisatration {
+            top: 2%;
+            left: 44%;
+            position: absolute;
+        }
+
+        #txt_login {
+            width: 200px;
+            top: 11%;
+            left: 40%;
+            position: absolute;
+            border: 2px solid black;
+        }
+
+        #msg_regist {
+            top: 8%;
+            width: 12%;
+            position: absolute;
+            left: 43%;
+            float: left;
+        }
+
+        #txt_email {
+            width: 200px;
+            top: 16%;
+            left: 40%;
+            position: absolute;
+            border: 2px solid black;
+        }
+
+        #txt_pass1 {
+            width: 200px;
+            top: 21%;
+            left: 40%;
+            position: absolute;
+            border: 2px solid black;
+        }
+
+        #txt_pass2 {
+            width: 200px;
+            top: 26%;
+            left: 40%;
+            position: absolute;
+            border: 2px solid black;
+        }
+
+        #btn_reg {
+            width: 205px;
+            top: 31%;
+            left: 40%;
+            position: absolute;
+            border: 2px solid black;
+        }
+
+        #lbLogin {
+            font-size: 18px;
+            top: 35%;
+            left: 38%;
+            position: absolute;
+        }
+
+        #link_register {
+            font-size: 18px;
+            top: 35%;
+            left: 52%;
+            position: absolute;
+        }
+
+    </style>
+    <script type="text/javascript" src="msg/command/command.js"></script>
+</head>
+<body>
+<section id="cont2">
+    <div id="form2">
+        <form name="register">
+            <div id="frame"></div>
+            <div id="lbRegisatration"><h3>Регистрация:</h3></div>
+            <input type="text" id="txt_login" placeholder="Имя" name="login"/><br/>
+            <div id="msg_regist"></div>
+            <input type="email" id="txt_email" placeholder="Ваш E-mail" name="email"/><br/>
+            <input type="password" id="txt_pass1" placeholder="Пароль" name="pass"/><br/>
+            <input type="password" id="txt_pass2" placeholder="Повторите пароль" name="pass2"/><br/>
+            <input type="button" id="btn_reg" value="Зарегистрироваться"
+                   onclick="Reg( txt_login.value, txt_email.value, txt_pass1.value, txt_pass2.value )"/>
+            <div id="lbLogin"> Уже зарегистрированы?</div>
+            <div id="link_register"><a id="link" href="msg/log/index.html">Войдите</a></div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
