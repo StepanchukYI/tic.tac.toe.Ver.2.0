@@ -1,41 +1,42 @@
 var glClientName;
-var t;
+var tmp;
 var glOpponentName;
 var glInGame;
 
 function Auth(login, password){
 
-    var r = new XMLHttpRequest();
-    r.open("GET", "msg/auth/auth.php?login=" + login + "&password=" + password + "&from=xo", true);
-    r.onreadystatechange = function () {
-        if (r.readyState == 4) {
-            var ans = r.responseText;
+    var reqest = new XMLHttpRequest();
+    reqest.open("GET", "msg/auth/auth.php?login=" + login + "&password=" + password + "&from=xo", true);
+    reqest.onreadystatechange = function () {
+        if (reqest.readyState == 4) {
+            var ans = reqest.responseText;
             //logs();
             Auth_Valid(ans);
         }
     };
+
     glInGame = "false";
     localStorage.setItem('glInGame', glInGame);
-    r.send(null);
+    reqest.send(null);
 }
 function Auth_Valid(ans) {
-    t = document.getElementById("pass_msg");
+    tmp = document.getElementById("pass_msg");
     switch (ans) {
         case "OK":
             document.location.href = 'client.html';
             break;
         case "User already online":
-            t.innerHTML = ans;
+            tmp.innerHTML = ans;
             localStorage.setItem('glInGame', glInGame);
             localStorage.setItem('glOpponentName', "");
             break;
         case "Failed password":
-            t.innerHTML = ans;
+            tmp.innerHTML = ans;
             localStorage.setItem('glInGame', glInGame);
             localStorage.setItem('glOpponentName', "");
             break;
         case "Failed login":
-            t.innerHTML = ans;
+            tmp.innerHTML = ans;
             localStorage.setItem('glInGame', glInGame);
             localStorage.setItem('glOpponentName', "");
             break;
@@ -44,45 +45,45 @@ function Auth_Valid(ans) {
 
 function Reg(login, email, password1, password2) {
 
-        var r = new XMLHttpRequest();
-    r.open("GET", "msg/reg/reg.php?login=" + login + "&password1=" + password1 + "&password2=" + password2 + "&email=" + email, true);
+        var request = new XMLHttpRequest();
+    request.open("GET", "msg/reg/reg.php?login=" + login + "&password1=" + password1 + "&password2=" + password2 + "&email=" + email, true);
 
-        r.onreadystatechange = function () {
-            if (r.readyState == 4) {
-            //document.getElementById("result").innerHTML += r.responseText;
-            //console.log(r.responseText);
-            var anser = r.responseText;
+        request.onreadystatechange = function () {
+            if (request.readyState == 4) {
+            //document.getElementById("result").innerHTML += request.responseText;
+            //console.log(request.responseText);
+            var anser = request.responseText;
             Reg_Valid(anser);
                 console.log(anser);
             }
         };
 
-        r.send(null);
+        request.send(null);
 }
 function Reg_Valid(anser){
 
-    t = document.getElementById("msg_regist");
+    tmp = document.getElementById("msg_regist");
     switch (anser) {
         case "User created":
             document.location.href = 'index.php';
             break;
         case "Email already using":
-            t.innerHTML = anser;
+            tmp.innerHTML = anser;
             break;
         case "Login already using":
-            t.innerHTML = anser;
+            tmp.innerHTML = anser;
             break;
         case "Passwords are different":
-            t.innerHTML = anser;
+            tmp.innerHTML = anser;
             break;
         case "Incorrect email":
-            t.innerHTML = anser;
+            tmp.innerHTML = anser;
             break;
         case "Incorrect login":
-            t.innerHTML = anser;
+            tmp.innerHTML = anser;
             break;
         case "Incorrect password":
-            t.innerHTML = anser;
+            tmp.innerHTML = anser;
             break;
     }
 }
@@ -97,11 +98,11 @@ function GetClients() {
 
     glClientName = getCookie('xo_auth_log');
     //console.log(glClientName);
-    var m = document.getElementById("lbLoginL");
-    m.innerHTML = glClientName;
+    var msg = document.getElementById("lbLoginL");
+    msg.innerHTML = glClientName;
 
     var r = new XMLHttpRequest();
-    t = document.getElementById("clients");
+    tmp = document.getElementById("clients");
 
     r.open("GET", "msg/profile/clients.php?login=" + glClientName, true);
 
@@ -116,10 +117,10 @@ function GetClients() {
                 for (i = 0; i < json.length; i++) {
                     ih += "<tr><td>" + json[i] + "</td>" + '<td><input type="button" ' + 'value="Invite" onclick=Invite("' + json[i] + '")></td>';
                 }
-                t.innerHTML = ih;
+                tmp.innerHTML = ih;
             }
             else {
-                t.innerHTML = "No users found";
+                tmp.innerHTML = "No users found";
             }
 
             var m = document.getElementById("lbLoginL");
@@ -212,7 +213,7 @@ function Receive() {
                         break;
                     case "denial":
 
-                        alert(sender + " doesn`t want to play with You");
+                        alert(sender + " doesn`tmp want to play with You");
 
                         break;
 
