@@ -1,5 +1,5 @@
 <?php
-include_once("../dbconfig.php");
+require ("Application.php");
 
 $who = $_REQUEST["who"];
 $opponent = $_REQUEST["opponent"];

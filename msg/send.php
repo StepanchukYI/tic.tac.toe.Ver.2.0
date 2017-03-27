@@ -1,11 +1,11 @@
 <?php
-include_once ("dbconfig.php");
+require ("command/Application.php");
 
 $sender = $_REQUEST['sender'];
 $receiver = $_REQUEST['receiver'];
 $header = $_REQUEST['header'];
 $body = $_REQUEST['body'];
 
-$sql_query = "INSERT INTO messages_xo(sender,receiver,header,body) VALUES('$sender','$receiver','$header','$body')";
+$app = new Application();
 
-mysqli_query($h, $sql_query);
+$app->Send($sender,$receiver,$header,$body);

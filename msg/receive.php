@@ -1,10 +1,9 @@
 <?php
-include_once ("dbconfig.php");
-
+require ("command/Application.php");
+$app = new Application();
 $receiver = $_REQUEST['receiver'];
 
-$sql_query = "SELECT sender,header,body FROM messages_xo WHERE receiver = '" . $receiver . "'";
-$result_set = mysqli_query($h, $sql_query);
+$row = $app->Receive($receiver);
 
 class Message
 {
@@ -19,19 +18,16 @@ class Message
         $this->body = $body;
     }
 }
-if(mysqli_num_rows($result_set) > 0)
-{
+if(count($row) > 0) {
     $messages = array();
 
-    while($row = mysqli_fetch_row($result_set))
-    {
-        array_push($messages, new Message($row[0], $row[1], $row[2]));
+    while ($row) {
+        array_push($messages, new Message($row[0]['sender'], $row[0]['header'], $row[0]['body']));
     }
 
     echo json_encode($messages);
 
-    $sql_query = "DELETE FROM messages_xo WHERE receiver = '" . $receiver . "'";
-    mysqli_query($h, $sql_query);
+    $app->Receiver_delete($receiver);
 }
 else
 {

@@ -1,42 +1,43 @@
 <?php
-include_once("../dbconfig.php");
+require ("../command/Application.php");
 
 $login = $_REQUEST['login'];
 $password1 = $_REQUEST['password1'];
 $password2 = $_REQUEST['password2'];
 $email = $_REQUEST['email'];
+$app = new Application();
 
-$sql_query = "SELECT login FROM clients WHERE login='" . $login . "'";
-$result_set = mysqli_query($h, $sql_query);
-$row = mysqli_fetch_row($result_set);
+$row = $app->Registration($login,$email);
 
-if (preg_match("/[!@#$%№₴\[\]\{'~\}\|\/`^&*():;\",<\\\>'\s]/", $login) == false && $login != "" && strlen($login) >= 1 && strlen($login) <= 19) {
-    if ((strlen($email) >= 6) && (preg_match("~^([a-z0-9_\-\.])+@([a-z0-9_\-\.])+\.([a-z0-9])+$~i", $email) == true)) {
-        if ($password1 != "" && strlen($password1) >= 6 && strlen($password1) <= 32) {
-            if ($password1 == $password2) {
-                if ($row[0] != $login) {
-                    $sql_query = "SELECT email FROM clients WHERE email='" . $email . "'";
-                    $result_set = mysqli_query($h, $sql_query);
-                    $row = mysqli_fetch_row($result_set);
-                    if ($row[0] != $email) {
-                        $sql_query = "INSERT INTO clients(login,password,email,banned) VALUES('$login', '$password1', '$email','false')";
-                        mysqli_query($h, $sql_query);
-                        echo "User created";
-                    } else {
-                        echo "Email already using";
-                    }
-                } else {
-                    echo "Login already using";
-                }
-            } else {
-                echo "Passwords are different";
-            }
-        } else {
-            echo "Incorrect password";
-        }
-    } else {
-        echo "Incorrect email";
-    }
-} else {
-    echo "Incorrect login";
+$errorArr = array();
+
+if (preg_match("/[!@#$%№₴\[\]\{'~\}\|\/`^&*():;\",<\\\>'\s]/", $login) != false && $login == "" && strlen($login) >= 1 && strlen($login) <= 19) {
+    array_push($errorArr,"Incorrect login");
 }
+if ((strlen($email) <= 6) && (preg_match("~^([a-z0-9_\-\.])+@([a-z0-9_\-\.])+\.([a-z0-9])+$~i", $email) != true)) {
+    array_push($errorArr,"Incorrect email");
+}
+if ($password1 == "" && strlen($password1) <= 6 && strlen($password1) >= 32) {
+    array_push($errorArr,"Incorrect password");
+}
+if ($password1 != $password2) {
+    array_push($errorArr,"Passwords are different");
+}
+
+if(count($errorArr) == 0 && count($row)== 0)
+{
+    $app->Registration_created($login, $password1, $email);
+    echo "User created";
+}
+else
+{
+    if ($row[0]['login'] == $login) array_push($errorArr,"Login already using");
+    if ($row[0]['email'] == $email) array_push($errorArr,"Email already using");
+
+    echo count($errorArr);
+    echo json_encode($errorArr);
+    unset($errorArr);
+
+}
+
+

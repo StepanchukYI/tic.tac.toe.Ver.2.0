@@ -1,5 +1,5 @@
 <?php
-include_once ("../dbconfig.php");
+require ("../command/Application.php");
 
 
  $where = $_REQUEST['where'];

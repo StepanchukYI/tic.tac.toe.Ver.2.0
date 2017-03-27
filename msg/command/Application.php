@@ -53,5 +53,35 @@ class Application
         $sth = $dbh->prepare("INSERT INTO game(who, who_fract, who_turn, opponent ,block ,value) VALUES(:who, :who_fract, :who_tutn, :opponent, :block, :value)");
         $sth->execute(array( ':who' => $who,':who_fract' => $who_fract,':who_tutn' => $who_turn, ':opponent' => $opponent, ':block' => '',':value' => ''));
     }
+    public function Receive($receiver){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("SELECT sender,header,body FROM messages_xo WHERE receiver = :receiver");
+        $sth->execute(array( ':receiver' => $receiver ));
+        return $sth->fetchAll();
+    }
+    public function Receiver_delete($receiver){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("DELETE FROM messages_xo WHERE receiver = :receiver");
+        $sth->execute(array( ':receiver' => $receiver ));
+        return $sth->fetchAll();
+    }
+    public function Send($sender,$receiver,$header,$body){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("INSERT INTO messages_xo(sender,receiver,header,body) VALUES(:sender,:receiver,:header,:body)");
+        $sth->execute(array( ':sender' => $sender ,':receiver' => $receiver, ':header'=> $header, ':body'=> $body ));
+    }
+    public function Registration($login,$email){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("SELECT login,email FROM clients WHERE login=:login OR email =:email ");
+        $sth->execute(array( ':login' => $login ,':email' => $email));
+        return $sth->fetchAll();
+    }
+    public function Registration_created($login,$password,$email){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("INSERT INTO clients(login,password,email,banned) VALUES(:login, :password, :email,'false')");
+        $sth->execute(array( ':login' => $login ,':password'=>$password,':email' => $email));
+    }
+
+
 
 }
