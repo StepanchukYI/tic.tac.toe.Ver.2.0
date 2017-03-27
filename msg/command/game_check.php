@@ -1,16 +1,15 @@
 <?php
-include_once("../dbconfig.php");
+require ("Application.php");
 
 $who = $_REQUEST["who"];
 $opponent = $_REQUEST["opponent"];
 
+$app = new Application();
 
-$sql_query = "SELECT who, opponent, block, value FROM game WHERE who ='".$who."' AND opponent ='".$opponent."' 
-                OR who ='".$opponent."' AND opponent ='".$who."' ";
-$result_set = mysqli_query($h, $sql_query);
+$row = $app->Game_check($who,$opponent);
 
+$max = count($row);
 
-$max =mysqli_num_rows($result_set);
 class Sqr{
 
     public $sqr1 = "";
@@ -27,6 +26,7 @@ class Sqr{
 }
 
 $sqr = new Sqr();
+
 if(mysqli_num_rows($result_set) > 0) {
 
     while ($row = mysqli_fetch_row($result_set)) {

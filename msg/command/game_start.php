@@ -1,13 +1,10 @@
 <?php
-include_once("../dbconfig.php");
+require ("Application.php");
 
 $who = $_REQUEST["who"];
 $opponent = $_REQUEST["opponent"];
 
-
-$sql_query = "SELECT who, who_fract, who_turn, opponent, block, value FROM game WHERE who ='".$who."' AND opponent ='".$opponent."'";
-
-$result_set = mysqli_query($h, $sql_query);
+$app = new Application();
 
 class Client{
     public $who;
@@ -23,8 +20,11 @@ class Client{
         $this->opponent = $opponent;
     }
 }
+echo $app->Game_start_select($who,$opponent);
 
-if(mysqli_num_rows($result_set) == 0){
+die();
+
+if($app->Game_start_select($who,$opponent) == 0){
     $who_fract = rand ( 0 , 1 );
     if($who_fract == 0){
         $who_fract = "X";
@@ -34,8 +34,7 @@ if(mysqli_num_rows($result_set) == 0){
         $who_fract = "O";
         $who_tutn = "false";
     }
-    $sql_query = "INSERT INTO game(who, who_fract, who_turn, opponent ,block ,value) VALUES('$who', '$who_fract', '$who_tutn', '$opponent', '$block', '$value')";
-    $result_set = mysqli_query($h, $sql_query);
+    $app->Game_start_insert($who,$who_fract,$who_turn,$opponent);
 
     echo json_encode(new Client($who,$who_fract,$who_tutn,$opponent));
 

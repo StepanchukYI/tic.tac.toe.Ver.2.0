@@ -9,9 +9,6 @@ include_once ("../dbconfig.php");
  $login = $_REQUEST['login'];
 
 
-
-echo $row[0];
-
 if($from == "xo") {
 
     if ($where == "fb") {

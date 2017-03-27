@@ -1,59 +1,46 @@
 <?php
-include_once ("../dbconfig.php");
+require ("../command/Application.php");
 
 $login = $_REQUEST['login'];
 $password = $_REQUEST['password'];
 $from = $_REQUEST['from'];
 
-$sql_query = "SELECT login, password FROM clients WHERE login='" . $login . "'";
+$errorArr = array();
 
-$result_set = mysqli_query($h, $sql_query);
+$app = new Application();
 
-$row = mysqli_fetch_row($result_set);
-if ($login != "") {
-    if ($password != "") {
-        if ($row[1] == $password) {
-
-            $sql_query = "SELECT login,xo_online,chat_online FROM clients WHERE login='" . $login . "'";
-
-            $result_set = mysqli_query($h, $sql_query);
-
-            $row = mysqli_fetch_row($result_set);
-
-            if ($from == "xo") {
-                if ($row[1] != "true") {
-
-                    $sql_query = "UPDATE clients SET xo_online = 'true' WHERE login='" . $login . "'";
-
-                    $result_set = mysqli_query($h, $sql_query);
-                    setrawcookie('xo_auth_log', $login, time() + 86400, '/');
+if ($login == "") array_push($errorArr,"Failed login");
+if ($password == "") array_push($errorArr,"Failed password");
 
 
-                    echo "OK";
-                } else {
-                    echo "User already online";
-                }
-            } else if ($from == "chat") {
-                if ($row[2] != "true") {
+$row = $app->Auth_Select($login);
 
-                    $sql_query = "UPDATE clients SET chat_online = 'true' WHERE login='" . $login . "'";
-
-                    $result_set = mysqli_query($h, $sql_query);
-                    setrawcookie('xo_auth_log', $login, time() + 86400, '/');
-
-
-                    echo "OK";
-                } else {
-                    echo "User already online";
-                }
-            }
-        } else {
-            echo "Failed password";
-        }
-    } else {
-        echo "Failed password";
-    }
-} else {
-    echo "Failed login";
+if (count($row)== 0) {
+    echo json_encode("Failed login");
 }
+else{
+    if ($password != $row[0]['password']) array_push($errorArr,"Failed password");
+    if ($row[0]['xo_online'] == "true") array_push($errorArr,"User already online");
+
+    if(count($errorArr) == 0) {
+        if ($from == "xo") {
+
+            $app->Update_Auth_xo($login,'true');
+
+            setrawcookie('xo_auth_log', $login, time() + 86400, '/');
+
+            echo json_encode("OK");
+        } else if($from == "chat") {
+
+            $app->Update_Auth_chat($login,'true');
+
+            setrawcookie('chat_auth_log', $login, time() + 86400, '/');
+            echo json_encode("OK");
+        }
+    }else {
+        echo json_encode($errorArr[0]);
+        unset($errorArr);
+    }
+}
+
 
