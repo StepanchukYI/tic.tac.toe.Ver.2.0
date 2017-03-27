@@ -51,7 +51,7 @@ class Application
     public function Game_start_insert($who,$who_fract,$who_turn,$opponent){
         $dbh = Application::DB_connect();
         $sth = $dbh->prepare("INSERT INTO game(who, who_fract, who_turn, opponent ,block ,value) VALUES(:who, :who_fract, :who_tutn, :opponent, :block, :value)");
-        $sth->execute(array( ':who' => $who,':who_fract' => $who_fract,':who_turn' => $who_turn, ':opponent' => $opponent, ':block' => "",':value' => ""));
+        $sth->execute(array( ':who' => $who,':who_fract' => $who_fract,':who_tutn' => $who_turn, ':opponent' => $opponent, ':block' => '',':value' => ''));
     }
 
 }
