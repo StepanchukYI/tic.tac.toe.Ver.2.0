@@ -4,15 +4,10 @@ require("../classes/Sqr.php");
 
 $who = $_REQUEST["who"];
 $opponent = $_REQUEST["opponent"];
-
 $app = new Application();
-
 $row = $app->Game_check($who,$opponent);
-
 $max = count($row);
-
 $sqr = new Sqr();
-
 if(mysqli_num_rows($result_set) > 0) {
 
     while ($row = mysqli_fetch_row($result_set)) {
@@ -49,7 +44,6 @@ if(mysqli_num_rows($result_set) > 0) {
     check($sqr, $max);
     echo json_encode($sqr);
 }
-
 function check(Sqr $sqr, $max){
 
     if ($sqr->sqr1 == $sqr->sqr2 && $sqr->sqr2 == $sqr->sqr3 && $sqr->sqr3 != "")

@@ -53,6 +53,19 @@ class Application
         $sth = $dbh->prepare("INSERT INTO game(who, who_fract, who_turn, opponent ,block ,value) VALUES(:who, :who_fract, :who_tutn, :opponent, :block, :value)");
         $sth->execute(array( ':who' => $who,':who_fract' => $who_fract,':who_tutn' => $who_turn, ':opponent' => $opponent, ':block' => '',':value' => ''));
     }
+    public function Game_end($who,$opponent){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("DELETE FROM game WHERE who =:who AND opponent =:opponent OR who =:opponent AND opponent =:who ");
+        $sth->execute(array( ':who' => $who, ':opponent' => $opponent));
+
+    }
+    public function Mail_send($email){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("SELECT login, password, email FROM clients WHERE email=:email");
+        $sth->execute(array( ':email' => $email ));
+        return $sth->fetchAll();
+
+    }
     public function Receive($receiver){
         $dbh = Application::DB_connect();
         $sth = $dbh->prepare("SELECT sender,header,body FROM messages_xo WHERE receiver = :receiver");
