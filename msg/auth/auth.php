@@ -1,5 +1,5 @@
 <?php
-require ("../command/Application.php");
+require("../classes/Application.php");
 
 $login = $_REQUEST['login'];
 $password = $_REQUEST['password'];

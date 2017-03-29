@@ -3,11 +3,13 @@ var tmp;
 var glOpponentName;
 var glInGame;
 var flag = true;
+var ans = "";
+var path = "";
 
 function Auth(login, password){
 
-    var path = "msg/auth/auth.php?login=" + login + "&password=" + password + "&from=xo";
-    var ans = Request(path);
+    path = "msg/auth/auth.php?login=" + login + "&password=" + password + "&from=xo";
+    Request(path);
     console.log(ans);
     //Auth_Valid(ans[0]);
 
@@ -26,9 +28,9 @@ function Auth_Valid(ans) {
 
 function Reg(login, email, password1, password2) {
 
-    var path ="msg/reg/reg.php?login=" + login + "&password1=" + password1 + "&password2=" + password2 + "&email=" + email;
-    var anser = Request(path);
-    Reg_Valid(anser);
+    path ="msg/auth/reg.php?login=" + login + "&password1=" + password1 + "&password2=" + password2 + "&email=" + email;
+    ans = Request(path);
+    Reg_Valid(ans);
 
 }
 function Reg_Valid(anser) {
@@ -57,7 +59,7 @@ function GetClients() {
 
     var path = "msg/profile/clients.php?login=" + glClientName;
 
-    var ans = Request(path);
+    ans = Request(path);
 
     if (ans != "") {
         var json = JSON.parse(ans);
@@ -79,8 +81,8 @@ function ToClients() {
 
 function Quit() {
 
-    var path = "msg/auth/quit.php?login=" + glClientName + "&from=xo";
-    var ans = Request(path);
+    path = "msg/auth/quit.php?login=" + glClientName + "&from=xo";
+    ans = Request(path);
 
     localStorage.setItem('glInGame', "false");
     localStorage.setItem('glOpponentName', "");
@@ -98,8 +100,8 @@ function Quit_Valid(ans) {
 }
 
 function Receive() {
-    var path = "msg/receive.php?receiver=" + glClientName;
-    var ans = Request(path);
+    path = "msg/receive.php?receiver=" + glClientName;
+    ans = Request(path);
 
     var json = JSON.parse(ans);
     var sender;
@@ -149,27 +151,27 @@ function Receive() {
 
 function Invite(opponentName) {
 
-    var path = "msg/send.php?sender=" + glClientName + "&receiver="
+    path = "msg/send.php?sender=" + glClientName + "&receiver="
         + opponentName + "&header=invite" + "&body=you received invitation";
     Request(path);
 }
 function Approve(opponentName) {
 
-    var path = "msg/send.php?sender=" + glClientName + "&receiver="
+    path = "msg/send.php?sender=" + glClientName + "&receiver="
         + opponentName + "&header=approval" + "&body=you received approval";
     Request(path);
     }
 function Deny(opponentName) {
 
-    var path = "msg/send.php?sender=" + glClientName + "&receiver="
+    path = "msg/send.php?sender=" + glClientName + "&receiver="
         + opponentName + "&header=denial" + "&body=you received denial";
     Request(path);
 }
 
 function Mail(email) {
 
-    var path = "msg/command/mail2.php?email=" + email;
-    var ans = Request(path);
+    path = "msg/command/mail2.php?email=" + email;
+    ans = Request(path);
     Mail_valid(ans);
 }
 function Mail_valid(ase) {
@@ -183,8 +185,8 @@ function Mail_valid(ase) {
 
 function Game_start(glClientName,glOpponentName) {
 
-    var path = "msg/command/game_start.php?who=" + glClientName + "&opponent=" + glOpponentName;
-    var ans = Request(path);
+    path = "msg/command/game_start.php?who=" + glClientName + "&opponent=" + glOpponentName;
+    ans = Request(path);
 
     var ansers = JSON.parse(ans);
 
@@ -200,8 +202,8 @@ function Game_make(sqrId) {
     glOpponentName = localStorage.getItem('glOpponentName');
     glClientName = getCookie('xo_auth_log');
 
-    var path = "msg/command/game_make.php?who=" + glClientName + "&opponent=" + glOpponentName + "&block=" + sqrId;
-    var ans = Request(path);
+    path = "msg/command/game_make.php?who=" + glClientName + "&opponent=" + glOpponentName + "&block=" + sqrId;
+    ans = Request(path);
 
     alert(ans);
 
@@ -212,8 +214,8 @@ function Game_check() {
         glOpponentName = localStorage.getItem('glOpponentName');
         glClientName = getCookie('xo_auth_log');
 
-        var path = "msg/command/game_check.php?who=" + glClientName + "&opponent=" + glOpponentName;
-        var ans = Request(path);
+        path = "msg/command/game_check.php?who=" + glClientName + "&opponent=" + glOpponentName;
+        ans = Request(path);
 
         var arr_btn = document.getElementsByClassName("tictac");
         var game_res = "";
@@ -237,8 +239,8 @@ function Game_end() {
     glOpponentName = localStorage.getItem('glOpponentName');
     glClientName = getCookie('xo_auth_log');
 
-    var path = "msg/command/game_check.php?who=" + glClientName + "&opponent=" + glOpponentName;
-    var ans = Request(path);
+    path = "msg/command/game_check.php?who=" + glClientName + "&opponent=" + glOpponentName;
+    ans = Request(path);
 }
 
 function reset() {
@@ -260,14 +262,13 @@ function reset() {
 }
 
 function Request(path) {
-    var ans = "";
+    ans = "";
     var request = new XMLHttpRequest();
     request.open("GET", path , true);
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.responseText != 0){
             ans =  request.responseText;
             console.log(ans);
-            return ans;
         }
     };
     request.send(null);

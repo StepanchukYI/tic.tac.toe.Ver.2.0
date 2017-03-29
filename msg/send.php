@@ -1,5 +1,5 @@
 <?php
-require ("command/Application.php");
+require("classes/Application.php");
 
 $sender = $_REQUEST['sender'];
 $receiver = $_REQUEST['receiver'];

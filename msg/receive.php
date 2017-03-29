@@ -1,23 +1,10 @@
 <?php
-require ("command/Application.php");
+require("classes/Application.php");
 $app = new Application();
 $receiver = $_REQUEST['receiver'];
 
 $row = $app->Receive($receiver);
 
-class Message
-{
-    public $sender;
-    public $header;
-    public $body;
-
-    function __construct($sender, $header, $body)
-    {
-        $this->sender = $sender;
-        $this->header = $header;
-        $this->body = $body;
-    }
-}
 if(count($row) > 0) {
     $messages = array();
 

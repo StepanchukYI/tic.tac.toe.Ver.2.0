@@ -1,5 +1,5 @@
 <?php
-require ("Application.php");
+require("../classes/Application.php");
 
 $who = $_REQUEST["who"];
 $opponent = $_REQUEST["opponent"];

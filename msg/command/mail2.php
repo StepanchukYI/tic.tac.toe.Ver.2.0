@@ -1,5 +1,5 @@
 <?php
-include_once("../dbconfig.php");
+require("../classes/Application.php");
 
 $email = $_REQUEST['email'];
 

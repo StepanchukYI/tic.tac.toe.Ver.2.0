@@ -1,5 +1,5 @@
 <?php
-require ("../command/Application.php");
+require("../classes/Application.php");
 
 if (!isset($_COOKIE['xo_auth_log'])) {
     $login = $_REQUEST['login'];

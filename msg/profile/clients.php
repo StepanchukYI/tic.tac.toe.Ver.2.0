@@ -1,5 +1,6 @@
 <?php
-include_once ("../dbconfig.php");
+require("../classes/Application.php");
+require("../classes/Message.php");
 
 if (!isset($_COOKIE['xo_auth_log'])) {
     $login = $_REQUEST['login'];
