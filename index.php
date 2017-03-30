@@ -11,111 +11,48 @@ $redirect_uri = 'http://localhost/tic.tac.toe/tic.tac.toe/msg/auth/google/index.
 $url = 'https://accounts.google.com/o/oauth2/auth';
 
 $params = array(
-    'redirect_uri'  => $redirect_uri,
+    'redirect_uri' => $redirect_uri,
     'response_type' => 'code',
-    'client_id'     => $client_id,
-    'scope'         => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+    'client_id' => $client_id,
+    'scope' => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
 );
 
 $gg = $url . '?' . urldecode(http_build_query($params));
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Tic Tac Toe</title>
-    <style>
-        #frame {
-            position: absolute;
-            top: 3%;
-            left: 36%;
-            width: 22%;
-            height: 30%;
-            border: 3px solid black;
-        }
-
-        #lbEnter {
-            top: 2%;
-            left: 45%;
-            position: absolute;
-        }
-
-        #pass_msg {
-
-            left: 41%;
-            top: 7%;
-            position: absolute;
-
-        }
-
-        #txt_login {
-            width: 200px;
-            top: 11%;
-            left: 40%;
-            position: absolute;
-            border: 2px solid black;
-        }
-
-        #txt_pass {
-            width: 200px;
-            top: 16%;
-            left: 40%;
-            position: absolute;
-            border: 2px solid black;
-        }
-
-        #btn_auth {
-            width: 205px;
-            top: 21%;
-            left: 40%;
-            position: absolute;
-            border: 2px solid black;
-        }
-
-        #btn_auth_fb {
-            top: 25%;
-            left: 40%;
-            position: absolute;
-        }
-
-        #link {
-            font-size: 18px;
-            top: 28%;
-            left: 37%;
-            position: absolute;
-        }
-
-        #btn_auth {
-
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="msg/style/style.css">
     <script type="text/javascript" src="msg/command/command.js"></script>
-
 </head>
 <body>
-<section id="cont">
-    <div id="form1">
-        <form method="post" name="login">
-            <div id="frame"></div>
-            <div id="lbEnter"><h3>Вход</h3></div>
-            <input type="text" id="txt_login" placeholder="Ваше имя" required/><br/>
-            <input type="password" id="txt_pass" placeholder="Пароль" required/><br/>
-            <div id="pass_msg"></div>
-            <input type="button" id="btn_auth" value="Войти" onclick="Auth(txt_login.value, txt_pass.value)"/>
-            <a id="btn_auth_fb" href="<?= $path; ?>">Войти через ФБ</a>
-            <a id="btn_auth_gg" href="<?= $gg; ?>">Войти через гугл</a>
-            <div id="link"><a id="link_reg" href="register.html">Первый раз на сайте?</a> <a id="link_pwd"
-                                                                                             href="forgot_pass.html">Забыли
-                    пароль?</a></div>
-
-
-        </form>
+<div class="frame">
+    <h3 class="lb_Enter">Вход</h3>
+    <div id="pass_msg" class="msg"> Something for help</div>
+    <div class="auth">
+        <input type="text" class="txt_login" id="txt_login" placeholder="Ваше имя"/>
+        <input type="password" class="txt_pass" id="txt_pass" placeholder="Пароль"/>
+        <input type="button" class="btn_auth" id="btn_auth" value="Войти"
+               onclick="Auth(txt_login.value, txt_pass.value)"/>
+        <ul>
+            <li><a href="<?= $path; ?>" class="auth auth_fb">Войти через ФБ</a></li>
+            <li><a href="<?= $gg; ?>" class="auth auth_gg">Войти через гугл</a></li>
+        </ul>
     </div>
-</section>
-
+    <div class="link">
+        <ul>
+            <li>
+                <a id="link reg" href="register.html">Первый раз на сайте?</a>
+            </li>
+            <li>
+                <a id="link pwd" href="forgot_pass.html">Забыли пароль?</a>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>
 

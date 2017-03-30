@@ -1,5 +1,7 @@
 <?php
 require("classes/Application.php");
+require ("classes/Message.php");
+
 $app = new Application();
 $receiver = $_REQUEST['receiver'];
 

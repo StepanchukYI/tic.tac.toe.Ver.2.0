@@ -35,13 +35,6 @@ class Application
         $sth = $dbh->prepare("UPDATE clients SET chat_online=:xo_online WHERE login=:login");
         $sth->execute(array( ':xo_online'=> $value,':login' => $login ));
     }
-    public function Game_check($who,$opponent){
-        $dbh = Application::DB_connect();
-        $sth = $dbh->prepare("SELECT who, opponent, block, value FROM game WHERE who =:who AND opponent =:opponent
-                OR who =:opponent AND opponent =:who ");
-        $sth->execute(array( ':who' => $who, ':opponent' => $opponent));
-        return $sth->fetchAll();
-    }
     public function Game_start_select($who,$opponent){
         $dbh = Application::DB_connect();
         $sth = $dbh->prepare("SELECT who, who_fract, who_turn, opponent, block, value FROM game WHERE who =:who AND opponent =:opponent");
@@ -52,6 +45,35 @@ class Application
         $dbh = Application::DB_connect();
         $sth = $dbh->prepare("INSERT INTO game(who, who_fract, who_turn, opponent ,block ,value) VALUES(:who, :who_fract, :who_tutn, :opponent, :block, :value)");
         $sth->execute(array( ':who' => $who,':who_fract' => $who_fract,':who_tutn' => $who_turn, ':opponent' => $opponent, ':block' => '',':value' => ''));
+    }
+    public function Game_check($who,$opponent){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("SELECT who, opponent, block, value FROM game WHERE who =:who AND opponent =:opponent
+                OR who =:opponent AND opponent =:who ");
+        $sth->execute(array( ':who' => $who, ':opponent' => $opponent));
+        return $sth->fetchAll();
+    }
+    public function Game_make_num($who,$opponent,$block){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("SELECT who,opponent, block FROM game WHERE who =:who
+              AND opponent =:opponent AND block =:block OR who =:opponent
+              AND opponent =:who AND block =:block");
+        $sth->execute(array( ':who' => $who, ':opponent' => $opponent, ':block' => $block));
+        return $sth->rowCount();
+    }
+    public function Game_make_insert($who,$who_fract,$who_turn,$opponent,$block,$value){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("INSERT INTO game(who, who_fract, who_turn, opponent ,block ,value) VALUES(:who, :who_fract, :who_turn, :opponent, :block, :value)");
+        $sth->execute(array( ':who' => $who, ':who_fract'=> $who_fract, ':who_turn'=> $who_turn, ':opponent' => $opponent, ':block' => $block , ':value'=>$value));
+        return $sth->rowCount();
+    }
+    public function Game_make_select($who,$opponent){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("SELECT MAX(id), who, who_fract, who_turn, opponent, block, value FROM game 
+                  WHERE who =:who AND opponent =:opponent AND id ='".$max[0]."'
+                  OR who =:opponent AND opponent =:who AND id ='".$max[0]."'");
+        $sth->execute(array( ':who' => $who, ':opponent' => $opponent));
+        return $sth->fetchAll();
     }
     public function Game_end($who,$opponent){
         $dbh = Application::DB_connect();
@@ -94,7 +116,5 @@ class Application
         $sth = $dbh->prepare("INSERT INTO clients(login,password,email,banned) VALUES(:login, :password, :email,'false')");
         $sth->execute(array( ':login' => $login ,':password'=>$password,':email' => $email));
     }
-
-
 
 }
