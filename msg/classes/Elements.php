@@ -6,7 +6,7 @@ class Elements
     private $txt_login = "";
     private $txt_pass = "";
     private $btn_auth = "";
-    private $txt_pass1 = "";
+    private $txt_email = "";
     private $txt_pass2 = "";
     private $btn_reg = "";
     private $register = "";
