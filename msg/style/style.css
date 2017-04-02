@@ -1,76 +1,136 @@
 body{
-    background: #ffe974;
-
+    background-color: cornsilk;
 }
-.frame {
-    top:50%;
+
+.frame{
     margin: 0 auto;
-    width: 300px;
-    height: 300px;
-    border: 1px solid coral;
-    position: relative;
-}
-.frame .lb_Enter{
-    text-align: center;
-    position: relative;
-    vertical-align: top;
-}
-.frame .msg {
-    text-align: center;
-    position: relative;
-    vertical-align: top;
-}
-
-.frame .auth {
-    text-align: center;
-    position: relative;
+    height: 350px;
+    width: 320px;
     vertical-align: middle;
-    height: 49%;
-}
-
-.auth .txt_login{
-    left: 43px;
+    border: 2px solid coral;
     text-align: center;
-    width: 66.66666666666667%;
-    position: absolute;
 }
-.auth .txt_pass{
-    left: 43px;
+
+nav a {
+    text-decoration: none;
+}
+nav ul {
+    padding: 0;
+}
+nav li {
+    list-style: none;
+    text-decoration: none;
+    font: 14px 'Oswald', sans-serif;
+    padding: 7px;
+}
+
+.lable li {
     text-align: center;
-    top: 18%;
-    width: 66.66666666666667%;
-    position: absolute;
+    padding: 10px;
+}
+
+li.vhod{
+    font-size: 20px;
 
 }
-.auth .btn_auth{
-    left: 43px;
-    top:35%;
-    border: 1px solid #459aff;
-    width: 68%;
-    position: absolute;
+input {
+    width: 70%;
+}
+
+.auth li.social{
+    list-style-position: inside;
+    padding: 10px 30px;
 
 }
-.auth .auth_fb{
-    top: 60%;
-    left: 43px;
-vertical-align: bottom;
-    width: 68%;
-    position: absolute;
-
+ul .social_a li{
+    width: 40%;
+    display: inline-block;
+    list-style-position: inside;
 }
-.auth .auth_gg{
-    left: 43px;
-    top: 77%;
+ul .link{
+    top: 30%;
+}
+
+
+li .link a {
+    display: inline-block;
+    color: #b2b2b2;
+}
+
+.tooltip{
+    position: fixed;
+    background: crimson;
+    border: 1px solid darkgreen;
+    width:10%;
+    heith: 20px;
+}
+
+.clients{
+    margin: 0 auto;
+    height: 500px;
+    width: 320px;
+    vertical-align: middle;
+    border: 2px solid coral;
+    text-align: center;
+}
+
+.clients a{
+    text-decoration: none;
+}
+.clients ul{
+    padding: 0;
+}
+.clients li{
+    list-style: none;
+    text-decoration: none;
+    font: 14px 'Oswald', sans-serif;
+    padding: 7px;
+}
+
+ul.lbName li {
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    list-style-position: inside;
+}
+ul.button li{
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    list-style-position: inside;
+    width: 40%;
+}
+ul .button li{
     vertical-align: bottom;
+    display: inline-block;
+    list-style-position: inside;
+}
+
+.clients .client {
+    margin: 0 auto;
+    text-align: left;
+    padding: 10px;
+    background: #fff;
+    vertical-align: middle;
+    height: 60%;
+    width: 80%;
+    border: 1px solid black;
+    overflow: auto;
+}
+
+.tictac {
+    font-size: 30px;
+    height: 60px;
+    width: 60px;
+}
+
+.game {
     position: absolute;
-    width: 68%;
+    top: 25%;
+    left: 45%;
 }
 
-.frame .link{
-    position: relative;
-    vertical-align:bottom;
-}
-
-li {
-    list-style-type: none;
+.return input{
+    height: 20px;
+    width: 60px;
 }

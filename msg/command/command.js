@@ -6,18 +6,18 @@ var flag = true;
 var ans = "";
 var path = "";
 
-function Auth(login, password){
+function Auth(login, password) {
 
     path = "msg/auth/auth.php?login=" + login + "&password=" + password + "&from=xo";
     Request(path);
     console.log(ans);
-    //Auth_Valid(ans[0]);
+    Auth_Valid(ans);
 
     localStorage.setItem('glInGame', "false");
 }
 function Auth_Valid(ans) {
     tmp = document.getElementById("pass_msg");
-    if(ans == "OK"){
+    if (ans == "OK") {
         document.location.href = 'client.html';
     } else {
         tmp.innerHTML = ans;
@@ -28,7 +28,7 @@ function Auth_Valid(ans) {
 
 function Reg(login, email, password1, password2) {
 
-    path ="msg/auth/reg.php?login=" + login + "&password1=" + password1 + "&password2=" + password2 + "&email=" + email;
+    path = "msg/auth/reg.php?login=" + login + "&password1=" + password1 + "&password2=" + password2 + "&email=" + email;
     ans = Request(path);
     Reg_Valid(ans);
 
@@ -160,7 +160,7 @@ function Approve(opponentName) {
     path = "msg/send.php?sender=" + glClientName + "&receiver="
         + opponentName + "&header=approval" + "&body=you received approval";
     Request(path);
-    }
+}
 function Deny(opponentName) {
 
     path = "msg/send.php?sender=" + glClientName + "&receiver="
@@ -183,7 +183,7 @@ function Mail_valid(ase) {
     }
 }
 
-function Game_start(glClientName,glOpponentName) {
+function Game_start(glClientName, glOpponentName) {
 
     path = "msg/command/game_start.php?who=" + glClientName + "&opponent=" + glOpponentName;
     ans = Request(path);
@@ -210,7 +210,7 @@ function Game_make(sqrId) {
 }
 function Game_check() {
 
-    if(flag) {
+    if (flag) {
         glOpponentName = localStorage.getItem('glOpponentName');
         glClientName = getCookie('xo_auth_log');
 
@@ -223,7 +223,7 @@ function Game_check() {
         var ansers = JSON.parse(ans);
 
         for (var i = 0; i < 10; i++) {
-            arr_btn[i].value = " " + ansers[/'sqr'/+[i+1]] + " ";
+            arr_btn[i].value = " " + ansers[/'sqr'/ + [i + 1]] + " ";
             game_res = ansers.game_res;
         }
         if (game_res != "") {
@@ -261,16 +261,80 @@ function reset() {
     document.location.href = 'client.html';
 }
 
-function Request(path) {
-    ans = "";
-    var request = new XMLHttpRequest();
-    request.open("GET", path , true);
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.responseText != 0){
-            ans =  request.responseText;
-            console.log(ans);
-        }
-    };
-    request.send(null);
+function anser(responseText) {
+    ans = responseText;
+}
 
+function Request(path) {
+        ans = "";
+        var request = new XMLHttpRequest();
+        request.open("GET", path, true);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.responseText != 0) {
+                anser(request.responseText);
+                console.log(ans);
+            }
+        };
+        request.send(null);
+}
+
+function local() {
+
+}
+function jquery() {
+
+    $(document).ready(function () {
+        var $parent,
+            windowWidth,
+            windowHeight;
+
+        function winsize() {
+            windowWidth = $(window).width();
+            windowHeight = $(window).height();
+        }
+
+        winsize();
+        $(window).resize(winsize);
+
+        $('.tooltip_login').each(function () {
+            $(this).parent().hover(function () {
+                $(this).find('.tooltip_login').fadeIn('fast');
+            }, function () {
+                $(this).find('.tooltip_login').fadeOut('fast');
+            });
+        });
+
+        $(document).mousemove(function (e) {
+            var mouseY = e.clientY,
+                mouseX = e.clientX,
+                tooltipHeight,
+                tooltipWidht;
+            $('.tooltip_login').each(function () {
+                var $tooltip = $(this),
+                    $parent = $tooltip.parent();
+                tooltipHeight = $tooltip.outerHeigt();
+                tooltipWidht = $tooltip.outerWidth();
+
+                $tooltip.css({
+                    'left': mouseX,
+                    'top': mouseY + 20
+                });
+
+
+                if (tooltipWidht + mouseX > tooltipWidht) {
+                    $tooltip.css({
+                        'left': mouseX - tooltipWidht - 20
+                    });
+                }
+
+                if (tooltipHeight + mouseY + 20 > tooltipHeight) {
+                    $tooltip.css({
+                        'heigth': mouseY - tooltipHeight - 20
+
+                    });
+                }
+
+            });
+        })
+    });
 }

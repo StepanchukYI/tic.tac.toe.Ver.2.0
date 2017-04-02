@@ -27,32 +27,50 @@ $gg = $url . '?' . urldecode(http_build_query($params));
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" type="text/css" href="msg/style/style.css">
     <script type="text/javascript" src="msg/command/command.js"></script>
+    <script type="text/javascript" src="msg/command/jquery-3.2.0.min.js"></script>
 </head>
 <body>
 <div class="frame">
-    <h3 class="lb_Enter">Вход</h3>
-    <div id="pass_msg" class="msg"> Something for help</div>
-    <div class="auth">
-        <input type="text" class="txt_login" id="txt_login" placeholder="Ваше имя"/>
-        <input type="password" class="txt_pass" id="txt_pass" placeholder="Пароль"/>
-        <input type="button" class="btn_auth" id="btn_auth" value="Войти"
-               onclick="Auth(txt_login.value, txt_pass.value)"/>
-        <ul>
-            <li><a href="<?= $path; ?>" class="auth auth_fb">Войти через ФБ</a></li>
-            <li><a href="<?= $gg; ?>" class="auth auth_gg">Войти через гугл</a></li>
-        </ul>
-    </div>
-    <div class="link">
-        <ul>
+    <nav>
+        <ul class="lable">
+            <li class="vhod">Вход</li>
             <li>
-                <a id="link reg" href="register.html">Первый раз на сайте?</a>
-            </li>
-            <li>
-                <a id="link pwd" href="forgot_pass.html">Забыли пароль?</a>
+                <div id="pass_msg" class="msg"></div>
             </li>
         </ul>
-    </div>
+        <ul class="auth">
+            <li>
+                <div>
+                    <input type="text" class="txt_login" id="txt_login" placeholder="Ваше имя"/>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <input type="password" class="txt_pass" id="txt_pass" placeholder="Пароль"/>
+                </div>
+            </li>
+            <li><input type="button" class="btn_auth" id="btn_auth" value="Войти"
+                       onclick="Auth(txt_login.value, txt_pass.value)"/></li>
+            <li>
+                <ul class="social_a">
+                    <li><a href="<?= $path; ?>" class="auth auth_fb">Войти через ФБ</a></li>
+                    <li><a href="<?= $gg; ?>" class="auth auth_gg">Войти через гугл</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="link">
+            <a id="link reg" href="register.html">Первый раз на сайте?</a>
+            <a id="link pwd" href="forgot_pass.html">Забыли пароль?</a>
+        </ul>
+    </nav>
 </div>
+<!--<div class="tooltip">
+    <div class="tooltip tooltip_password">Textbox for password</div>
+    <div class="tooltip tooltip_login">Textbox for login</div>
+    <div class="tooltip tooltip_email">Textbox for email</div>
+    <div class="tooltip tooltip_repass">Textbox for repassword</div>
+</div>
+-->
 </body>
 </html>
 

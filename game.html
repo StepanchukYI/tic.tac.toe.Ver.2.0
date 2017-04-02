@@ -4,76 +4,14 @@
     <meta charset="UTF-8">
     <title>Game XO</title>
     <script type="text/javascript" src="msg/command/command.js"></script>
-    <style>
-        #game {
-            position: absolute;
-            top: 25%;
-            left: 45%;
-        }
+    <link rel="stylesheet" type="text/css" href="msg/style/style.css">
+    <script>
+        setInterval(Game_check, 100);
+    </script>
 
-        #sqr1 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr2 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr3 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr4 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr5 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr6 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr7 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr8 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-
-        #sqr9 {
-            font-size: 30px;
-            height: 60px;
-            width: 60px;
-        }
-    </style>
 </head>
-
 <body>
-
-<script>
-    setInterval(Game_check, 100);
-</script>
-<div id="game">
-    <FORM NAME="tic" method="post">
+<div class="game">
         <div id="fr_msg"></div>
         <INPUT TYPE="button" id="sqr1" class="tictac" value="     " onClick="Game_make('1')">
         <INPUT TYPE="button" id="sqr2" class="tictac" value="     " onClick="Game_make('2')">
@@ -84,8 +22,8 @@
         <INPUT TYPE="button" id="sqr7" class="tictac" value="     " onClick="Game_make('7')">
         <INPUT TYPE="button" id="sqr8" class="tictac" value="     " onClick="Game_make('8')">
         <INPUT TYPE="button" id="sqr9" class="tictac" value="     " onClick="Game_make('9')">
-    </form>
-    <INPUT TYPE="button" id="return" class="" value="Return" onClick="ToClients()">
+    <div class="return"><INPUT TYPE="button" id="return" class="" value="Return" onClick="ToClients()"></div>
+
 </div>
 </body>
 </html>

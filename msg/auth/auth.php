@@ -38,7 +38,7 @@ if(count($errorArr) == 0) {
         echo json_encode("OK");
     }
 }else {
-    echo json_encode($errorArr[0]);
+    echo $errorArr[0];
     unset($errorArr);
 }
 
