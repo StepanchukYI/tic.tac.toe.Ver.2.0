@@ -1,12 +1,21 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: b0dun
- * Date: 02.04.2017
- * Time: 21:01
- */
 class Elements
 {
+    private $lang = "";
+    private $txt_login = "";
+    private $txt_pass = "";
+    private $btn_auth = "";
+    private $txt_pass1 = "";
+    private $txt_pass2 = "";
+    private $btn_reg = "";
+    private $register = "";
+    private $vhod = "";
+    private $login = "";
+    private $uzhe = "";
+    private $btn_refresh = "";
+    private $btn_quit = "";
+    private $returnn = "";
+    private $finish = "";
 
 }

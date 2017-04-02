@@ -116,5 +116,10 @@ class Application
         $sth = $dbh->prepare("INSERT INTO clients(login,password,email,banned) VALUES(:login, :password, :email,'false')");
         $sth->execute(array( ':login' => $login ,':password'=>$password,':email' => $email));
     }
-
+    public function Local($lang){
+        $dbh = Application::DB_connect();
+        $sth = $dbh->prepare("SELECT * FROM local WHERE lang=:lang");
+        $sth->execute(array( ':lang' => $lang));
+        return $sth->fetchAll();
+    }
 }
